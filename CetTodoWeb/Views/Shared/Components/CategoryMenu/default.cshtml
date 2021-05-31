@@ -1,0 +1,13 @@
+﻿@model IEnumerable<CetTodoWeb.Models.Category>
+
+
+@if (User.Identity.IsAuthenticated)
+{
+@foreach (var item in Model)
+{
+
+<li class="nav-item">
+	<a class="nav-link text-dark" asp-area="" asp-controller="Todo" asp-action="Index" asp-route-id="@item.Id">@item.Name</a>
+</li>}
+}
+

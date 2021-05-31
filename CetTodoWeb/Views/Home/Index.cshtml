@@ -1,0 +1,83 @@
+﻿@model IEnumerable<CetTodoWeb.Models.TodoItem>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+@if (User.Identity.IsAuthenticated)
+{
+
+
+
+    @if (!Model.Any()) //Model.Count()==0
+    {
+        <div class="text-center">
+            <h1 class="display-4"> Congratulations!!! You completed all! </h1>
+
+        </div>
+    }
+    else
+    {
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Title)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Category)
+                    </th>
+
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.RemainingHour)
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+				{
+					var maStyle = "";
+					if (item.IsCompleted)
+					{
+						maStyle = "background-color:green";
+					}
+					else if (item.RemainingHour < 0)
+					{
+						maStyle = "background-color:red";
+					}
+					else if (item.RemainingHour < 24)
+					{
+						maStyle = "background-color:orange";
+					}
+					else
+					{
+						maStyle = "background-color:gray";
+					}
+                    <tr style="@maStyle">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Category.Name)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RemainingHour)
+                        </td>
+
+
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+}
