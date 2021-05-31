@@ -46,6 +46,11 @@ namespace CetTodoWeb.Areas.Identity.Pages.Account.Manage
             
             [Display(Name = "Surname")]
             public string Surname { get; set; }
+
+
+            [Display(Name = "Age")]
+            [Range(18,int.MaxValue, ErrorMessage = "You must be at least 18 to register.")]
+            public int Age { get; set; }
         }
 
         private async Task LoadAsync(CetUser user)
@@ -58,8 +63,9 @@ namespace CetTodoWeb.Areas.Identity.Pages.Account.Manage
             Input = new InputModel
             {
                 PhoneNumber = phoneNumber,
-                Name=user.Name,
-                Surname=user.Surname
+                Name = user.Name,
+                Surname = user.Surname,
+                Age=user.Age
             };
         }
 
@@ -90,6 +96,7 @@ namespace CetTodoWeb.Areas.Identity.Pages.Account.Manage
             }
             user.Name = Input.Name;
             user.Surname = Input.Surname;
+            user.Age = Input.Age;
             await _userManager.UpdateAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             if (Input.PhoneNumber != phoneNumber)

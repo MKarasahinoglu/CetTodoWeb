@@ -10,6 +10,7 @@ namespace CetTodoWeb.Models
     {
         public string Name { get; set; }
         public string Surname { get; set; }
+        public int Age { get; set; }
 
         public virtual List<TodoItem> TodoItems { get; set; }
         public virtual List<Category> Categories { get; set; }

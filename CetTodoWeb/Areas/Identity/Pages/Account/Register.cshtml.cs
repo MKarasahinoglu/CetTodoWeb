@@ -55,6 +55,13 @@ namespace CetTodoWeb.Areas.Identity.Pages.Account
             public string Surname { get; set; }
 
             [Required]
+            [Display(Name = "Age")]
+            [Range(18,int.MaxValue,ErrorMessage ="You must be at least 18 to register.")]
+            public int Age { get; set; }
+            
+
+
+            [Required]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
@@ -83,7 +90,7 @@ namespace CetTodoWeb.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new CetUser { UserName = Input.Email, Email = Input.Email, Name=Input.Name, Surname=Input.Surname };
+                var user = new CetUser { UserName = Input.Email, Email = Input.Email, Name=Input.Name, Surname=Input.Surname, Age=Input.Age };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
